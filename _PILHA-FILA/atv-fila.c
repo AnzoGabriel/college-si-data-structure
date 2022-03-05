@@ -69,7 +69,7 @@ void enfileirarElemento(int elemento)
 {
     if (filaCheia() == 1)
     {
-        printf("\n\nA Fila esta cheia\n\n");
+        filaCheia();
         return;
     }
     else
@@ -109,7 +109,7 @@ int main()
         printf("*********************************************\n\n");
 
         printf("1 - Enfileirar\n");
-        printf("2 - Sesenfileirar\n");
+        printf("2 - Desenfileirar\n");
         printf("3 - Exibir Fila\n");
         printf("4 - Sair da aplicação.\n\n");
 
@@ -122,6 +122,7 @@ int main()
 
             int elemento; // ARMAZENA O VALOR PARA ENFILEIRAR
 
+        // --------- ENFILEIRAR --------- //
         case 1:;
 
             int doneEnfileirar; // Armazena o valor da opção (1 - Sim / 2 - Não) para continuar Empilhando
@@ -149,11 +150,25 @@ int main()
 
             } while (doneEnfileirar == 1);
             break;
+
+        // --------- DESENFILEIRAR --------- //
         case 2:;
-            /* code */
+
+            if (filaVazia() == 1)
+            {
+                printf("\n\n\n A Fila está Vazia!!\n\n\n");
+                return;
+            }
+            else
+            {
+                start++;
+            }
+
             break;
+
+        // --------- VIZUALIZAR FILA --------- //
         case 3:;
-            /* code */
+            
             break;
 
         default:
