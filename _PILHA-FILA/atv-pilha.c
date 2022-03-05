@@ -132,10 +132,11 @@ int checkContinuity(int done)
         if (done != 2)
         {
             printf("\n\n## Error: Entrada Inválida!\n\n");
-            return;
+            return 0;
         }
         break;
     }
+    return 0;
 }
 
 /**

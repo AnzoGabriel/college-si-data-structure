@@ -11,6 +11,15 @@ int start = 0,      // Inicializa a fila na posição 0
     end = 0;        // Informa o final da fila
 
 /**
+ * FUNÇÃO PARA CABEÇALHO
+ */
+void header()
+{
+    system("clear||cls");
+    printf("\n\n");
+}
+
+/**
  * FUNÇÃO PARA VERIFICAR CONTINUIDADE DA OPERAÇÃO
  */
 int checkContinuity(int done)
@@ -28,10 +37,11 @@ int checkContinuity(int done)
         if (done != 2)
         {
             printf("\n\n## Error: Entrada Inválida!\n\n");
-            return;
+            return 0;
         }
         break;
     }
+    return 0;
 }
 
 /**
@@ -40,9 +50,15 @@ int checkContinuity(int done)
 int filaVazia()
 {
     if (start == end)
+    {
+        header();
+        printf(">> A PILHA ESTÁ VAZIA! << \n\n\n");
         return 1;
+    }
     else
+    {
         return 0;
+    }
 }
 
 /**
@@ -70,7 +86,6 @@ void enfileirarElemento(int elemento)
     if (filaCheia() == 1)
     {
         filaCheia();
-        return;
     }
     else
     {
@@ -86,7 +101,7 @@ void enfileirarElemento(int elemento)
 void desenfileirarElemento()
 {
     if (filaVazia() == 1)
-        printf("\n\nA Fila esta vazia!!\n\n");
+        filaVazia();
     else
         start++;
 }
@@ -98,7 +113,7 @@ int main()
     setlocale(LC_ALL, "Portuguese_Brazil");
     // ---------------------------------------------//
 
-    printf('::: HELLO WORD! :::\n\n\n');
+    printf("::: HELLO WORD! :::\n\n\n");
 
     int menuOption;
 
@@ -156,8 +171,7 @@ int main()
 
             if (filaVazia() == 1)
             {
-                printf("\n\n\n A Fila está Vazia!!\n\n\n");
-                return;
+                filaVazia();
             }
             else
             {
@@ -168,7 +182,18 @@ int main()
 
         // --------- VIZUALIZAR FILA --------- //
         case 3:;
-            
+            if (filaVazia() == 1)
+            {
+                filaVazia();
+            }
+            else
+            {
+                for (int i = start; i < end - 1; i++)
+                {
+                    printf("%d\n", fila[i]);
+                }
+            }
+
             break;
 
         default:
