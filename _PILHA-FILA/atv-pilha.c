@@ -150,7 +150,7 @@ int main()
     // ---------------------------------------------//
 
     printf("____________________________________________\n\n");
-    printf("\tEXERCÍCIO DE PILHAS E FILAS\n");
+    printf("\tEXERCÍCIO DE PILHAS\n");
     printf("____________________________________________\n\n");
 
     int menuOption;

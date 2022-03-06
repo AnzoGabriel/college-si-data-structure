@@ -2,36 +2,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 // -----------------------------//
 
 #define SIZEFILA 4 // Define o tamanho da fila
 
 int fila[SIZEFILA]; // Cria vetor com tamanho da fila definido
-int start = 0,      // Inicializa a fila na posição 0
-    end = 0;        // Informa o final da fila
+
+int start = 0, // Inicializa a fila na posição 0
+    end = 0;   // Informa o final da fila
 
 /**
  * FUNÇÃO PARA CABEÇALHO
  */
 void header()
 {
-    system("clear||cls");
-    printf("\n\n");
+    system("clear||cls"); // LIMPA O TERMINAL
 }
 
 // --------- CONFIG DE CORES E EFEITOS --------- //
 
 /********* CORES *********/
-#define C_RED "\033[31m"
-#define C_GREEN "\033[1;33m"
-#define C_YELLOW "\033[33m"
-#define C_BLUE "\033[34m"
+#define C_RED "\033[1;31m"
+#define C_GREEN "\033[1;32m"
+#define C_YELLOW "\033[0;33m"
+#define C_BLUE "\033[1;34m"
 
 /********* EFEITOS *********/
 #define NONE "\033[0m"
-#define BOLD "\033[1m"
+
+/********* SETTINGS *********/
+#define ERRO "erro"
+#define AVISO "aviso"
+#define SUCESSO "sucesso"
+#define INFO "info"
 
 // --------------------------------------------- //
+
+/**
+ * FUNÇÃO RESPONSÁVEL PELA EXIBIÇÃO DE MENSAGENS PERSONALIZADAS
+ */
+void msg(const char *type_msg, const char *str)
+{
+
+    if (strcmp(type_msg, "erro") == 0)
+    {
+        printf("%s%s%s", C_RED, str, NONE);
+        return;
+    }
+    else if (strcmp(type_msg, "aviso") == 0)
+    {
+        printf("%s%s%s", C_YELLOW, str, NONE);
+        return;
+    }
+    else if (strcmp(type_msg, "sucesso") == 0)
+    {
+        printf("%s%s%s", C_GREEN, str, NONE);
+        return;
+    }
+    else if (strcmp(type_msg, "info") == 0)
+    {
+        printf("%s%s%s", C_BLUE, str, NONE);
+        return;
+    }
+    else
+    {
+        printf("\n\n#!\n%smessage type undefined - function: msg%s\n\t#!\n\n", C_BLUE, NONE);
+        return;
+    }
+    return;
+}
 
 /**
  * FUNÇÃO PARA VERIFICAR CONTINUIDADE DA OPERAÇÃO
@@ -50,7 +90,7 @@ int checkContinuity(int done)
 
         if (done != 2)
         {
-            printf("\n\n## Error: Entrada Inválida!\n\n");
+            msg(ERRO, "# - Error: Informe uma opção VÁLIDA - #\n\n");
             return 0;
         }
         break;
@@ -66,7 +106,7 @@ int filaVazia()
     if (start == end)
     {
         header();
-        printf(">> A FILA ESTÁ VAZIA! << \n\n\n");
+        msg(INFO, "\n\n>> A FILA ESTÁ VAZIA! <<\n\n\n");
         return 1;
     }
     else
@@ -83,7 +123,7 @@ int filaCheia()
     if (end == SIZEFILA)
     {
         header();
-        printf("\n\n\n>> A FILA ESTÁ COMPLETAMENTE CHEIA! << \n\n\n");
+        msg(AVISO, "\n\n>> A FILA ESTÁ COMPLETAMENTE CHEIA! <<\n\n\n");
         return 1;
     }
     else
@@ -105,7 +145,7 @@ void enfileirarElemento(int elemento)
     {
         fila[end] = elemento;
         end++;
-        printf("\033[32m\n\nElemento Adicionado\n\n\033[0m");
+        msg(SUCESSO, "\n>> ELEMENTO ADICIONADO COM SUCESSO <<\n\n");
     }
 }
 
@@ -127,6 +167,7 @@ void desenfileirarElemento()
             fila[i] = fila[i + 1];
         }
         end--;
+        msg(SUCESSO, "\n\n>> ELEMENTO REMOVIDO COM SUCESSO <<\n\n");
     }
 }
 
@@ -148,6 +189,10 @@ int main()
     // ----- LIBRARY CONFIGURATION TO USE ACCENT----//
     setlocale(LC_ALL, "Portuguese_Brazil");
     // ---------------------------------------------//
+
+    printf("____________________________________________\n\n");
+    printf("\tEXERCÍCIO DE FILAS\n");
+    printf("____________________________________________\n\n");
 
     int menuOption; // ARMAZENA A OPÇÃO FORNECIDA
 
@@ -228,7 +273,7 @@ int main()
             if (menuOption != 4)
             {
                 header();
-                printf("%s %s\n\n## Error: Informe umas das opção validas abaixo\n\n%s", BOLD, C_YELLOW, NONE);
+                msg(ERRO, "# - Error: Informe umas das opção validas ABAIXO - #\n\n");
             }
             break;
         }
