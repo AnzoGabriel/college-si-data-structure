@@ -4,7 +4,7 @@
 #include <locale.h>
 // -----------------------------//
 
-#define SIZEFILA 6 // Define o tamanho da fila
+#define SIZEFILA 4 // Define o tamanho da fila
 
 int fila[SIZEFILA]; // Cria vetor com tamanho da fila definido
 int start = 0,      // Inicializa a fila na posição 0
@@ -18,6 +18,20 @@ void header()
     system("clear||cls");
     printf("\n\n");
 }
+
+// --------- CONFIG DE CORES E EFEITOS --------- //
+
+/********* CORES *********/
+#define C_RED "\033[31m"
+#define C_GREEN "\033[1;33m"
+#define C_YELLOW "\033[33m"
+#define C_BLUE "\033[34m"
+
+/********* EFEITOS *********/
+#define NONE "\033[0m"
+#define BOLD "\033[1m"
+
+// --------------------------------------------- //
 
 /**
  * FUNÇÃO PARA VERIFICAR CONTINUIDADE DA OPERAÇÃO
@@ -49,10 +63,10 @@ int checkContinuity(int done)
  */
 int filaVazia()
 {
-    if (start == 0)
+    if (start == end)
     {
         header();
-        printf(">> A PILHA ESTÁ VAZIA! << \n\n\n");
+        printf(">> A FILA ESTÁ VAZIA! << \n\n\n");
         return 1;
     }
     else
@@ -91,7 +105,7 @@ void enfileirarElemento(int elemento)
     {
         fila[end] = elemento;
         end++;
-        printf("\n\nElemento Adicionado\n\n");
+        printf("\033[32m\n\nElemento Adicionado\n\n\033[0m");
     }
 }
 
@@ -100,7 +114,7 @@ void enfileirarElemento(int elemento)
  */
 void desenfileirarElemento()
 {
-    int backup = fila[0]; // ARMAZENA A POSIÇÃO INICIAL DO VETOR
+    // int backup = fila[0]; // ARMAZENA A POSIÇÃO INICIAL DO VETOR
 
     if (filaVazia() == 1)
     {
@@ -116,6 +130,18 @@ void desenfileirarElemento()
     }
 }
 
+/**
+ * FUNÇÃO PARA IMPRIMIR A FILA
+ */
+
+void imprimirFila()
+{
+    for (int i = start; i < end; i++)
+    {
+        printf("%dº\t%d\n", i + 1, fila[i]);
+    }
+}
+
 int main()
 {
 
@@ -123,9 +149,7 @@ int main()
     setlocale(LC_ALL, "Portuguese_Brazil");
     // ---------------------------------------------//
 
-    printf("::: HELLO WORD! :::\n\n\n");
-
-    int menuOption;
+    int menuOption; // ARMAZENA A OPÇÃO FORNECIDA
 
     do
     {
@@ -180,13 +204,9 @@ int main()
         case 2:;
 
             if (filaVazia() == 1)
-            {
                 filaVazia();
-            }
             else
-            {
-                start++;
-            }
+                desenfileirarElemento();
 
             break;
 
@@ -198,10 +218,8 @@ int main()
             }
             else
             {
-                for (int i = start; i < end; i++)
-                {
-                    printf("%d\n", fila[i]);
-                }
+                header();
+                imprimirFila();
             }
 
             break;
@@ -210,9 +228,8 @@ int main()
             if (menuOption != 4)
             {
                 header();
-                printf("\n\n## Error: Opção Inválida!\n\n");
+                printf("%s %s\n\n## Error: Informe umas das opção validas abaixo\n\n%s", BOLD, C_YELLOW, NONE);
             }
-            break;
             break;
         }
     } while (menuOption != 4);
