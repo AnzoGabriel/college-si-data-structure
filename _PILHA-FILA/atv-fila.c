@@ -174,13 +174,18 @@ void desenfileirarElemento()
 /**
  * FUNÇÃO PARA IMPRIMIR A FILA
  */
-
 void imprimirFila()
 {
+    printf(":::::::::::::::::::::::::::::::::::::::::\n");
+    printf("::::::::::::::::: FILA ::::::::::::::::::\n");
+    printf(":::::::::::::::::::::::::::::::::::::::::\n\n");
+    printf(">> Primeiro da Fila: %d\n", fila[start]);
+    printf(">> Último da Fila: %d\n\n", fila[end - 1]);
     for (int i = start; i < end; i++)
     {
-        printf("%dº\t%d\n", i + 1, fila[i]);
+        printf("%dº da Fila\t%d\n", i + 1, fila[i]);
     }
+    printf("\n:::::::::::::::::::::::::::::::::::::::::\n\n\n");
 }
 
 int main()
@@ -198,6 +203,7 @@ int main()
 
     do
     {
+        // --------- MENU --------- //
         printf("*********************************************\n");
         printf("\t     MENU  DE OPERAÇÕES\n");
         printf("*********************************************\n\n");
@@ -236,7 +242,7 @@ int main()
                     scanf("%d", &elemento);
                     enfileirarElemento(elemento);
 
-                    printf("Deseja Enfileirar outro valor. (1 - Sim | 2 - Não)? ");
+                    msg(INFO, "Deseja Enfileirar outro valor. (1 - Sim | 2 - Não)? ");
                     scanf("%d", &doneEnfileirar);
 
                     checkContinuity(doneEnfileirar);
