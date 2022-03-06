@@ -49,7 +49,7 @@ int checkContinuity(int done)
  */
 int filaVazia()
 {
-    if (start == end)
+    if (start == 0)
     {
         header();
         printf(">> A PILHA ESTÁ VAZIA! << \n\n\n");
@@ -66,7 +66,7 @@ int filaVazia()
  */
 int filaCheia()
 {
-    if (end == start)
+    if (end == SIZEFILA)
     {
         header();
         printf("\n\n\n>> A FILA ESTÁ COMPLETAMENTE CHEIA! << \n\n\n");
@@ -100,10 +100,20 @@ void enfileirarElemento(int elemento)
  */
 void desenfileirarElemento()
 {
+    int backup = fila[0]; // ARMAZENA A POSIÇÃO INICIAL DO VETOR
+
     if (filaVazia() == 1)
+    {
         filaVazia();
+    }
     else
-        start++;
+    {
+        for (int i = 0; i < end; i++)
+        {
+            fila[i] = fila[i + 1];
+        }
+        end--;
+    }
 }
 
 int main()
@@ -188,7 +198,7 @@ int main()
             }
             else
             {
-                for (int i = start; i < end - 1; i++)
+                for (int i = start; i < end; i++)
                 {
                     printf("%d\n", fila[i]);
                 }
